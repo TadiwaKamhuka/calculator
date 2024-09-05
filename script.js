@@ -1,52 +1,98 @@
-function add(a, b) {
-    return a + b;
+function add(n1, n2) {
+    return n1 + n2
 }
 
-function subtract(a, b) {
-    return a - b;
+function subtract(n1, n2){
+    return n1 - n2
 }
 
-function multiply(a, b) {
-    return a * b;
+function multiply(n1, n2){
+    return n1 * n2;
 }
 
-function divide(a, b) {
-    return a / b;
+function divide(n1, n2){
+    return n1 / n2;
 }
 
-let firstNumber;
-let operator;
-let secondNumber;
+let numberStored = ''
+let operatorStored = ''
 
-function operate(num1, operator, num2) {
-    if (operator == "+"){
-        return add(num1, num2);
-    } else if (operator == "-"){
-        return subtract(num1, num2);
-    } else if (operator == "*"){
-        return multiply(num1, num2);
-    } else if (operator == "/"){
-        return divide(num1, num2);
-    } else {
-        return "Invalid inputs";
+function operate(num1, op, num2) {
+    switch (op) {
+        case '+':
+            return add(num1, num2)
+        case '-':
+            return subtract(num1, num2)
+        case '*':
+            return multiply(num1, num2)
+        case '/':
+            return divide(num1, num2)
+            default:
+                return null;
     }
 }
 
-let output = document.querySelector(".output");
-let buttons = document.querySelectorAll("button");
+const buttons = document.querySelectorAll('button')
+const display = document.querySelector('.display')
+let didEquals = false
+let newInput = false
 
-buttons.forEach(button => {
-    button.addEventListener("click", (e) => {
-        if (parseInt(e.target.value) <= 9 || parseInt(e.target.value) >= 0){
-            output.textContent += e.target.value;
-            console.log(output.textContent);
-        } else if (e.target.value == "+" || e.target.value == "-" || e.target.value == "*" || e.target.value == "/"){
-            firstNumber = output.textContent;
-            output.textContent = e.target.value
-            operator = e.target.value;
+function storeValue(operator) {
+    if (!numberStored) {
+        numberStored = display.textContent
+        display.textContent = ''
+    } else {
+        numberStored = operate(Number(numberStored), operatorStored, Number(display.textContent))
+    }
+
+    operatorStored = operator
+    newInput = true
+    didEquals = false
+}
+
+function addToDisplay(number) {
+    let displayNum = display.textContent
+    setDisplay(number)
+    displayNum = displayNum + number
+    setDisplay(displayNum)
+}
+
+function setDisplay(displayNum) {
+    display.textContent = ''
+    displayNum = displayNum.toString()
+    display.textContent = displayNum
+}
+
+
+buttons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        let input = e.target.value
+        if (input >= 0 && input <= 9) {
+            if (didEquals) {
+                setDisplay(input)
+                didEquals = false
+            } else {
+                addToDisplay(input)
+            }
+        } else if (input == 'ac') {
+            display.textContent = ''
+            numberStored = ''
+            operatorStored = ''
+        } else if (input == '=') {
+            if (!numberStored || !operatorStored) {
+                alert("No operation entered")
+                display.textContent = ''
+                numberStored = ''
+                operatorStored = ''
+            } else {
+                numberStored = operate(Number(numberStored), operatorStored, Number(display.textContent))
+                setDisplay(numberStored)
+                operatorStored = ''
+                numberStored = ''
+                didEquals = true
+            }
+        } else {
+            storeValue(input)
         }
     })
 })
-
-
-
