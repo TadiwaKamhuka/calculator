@@ -2,50 +2,50 @@
     margin: 0;
 }
 
+body {
+    background-color: black;
+}
+
 .container {
-    width: 50%;
-    margin-top: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid black;
-    border-radius: 10px;
+    width: 25vw;
+    height: 65vh;
+    margin: 12vh auto;
+    display: grid;
+    grid-template-rows: 1fr 4fr;
 }
 
-.input {
+.display-container {
+    color: white;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: end;
+    align-items: center;
 }
 
-.output {
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
+.display {
     text-align: center;
+    font-size: 3.25rem;
+    padding-right: 2.5vw;
 }
 
-.input div {
-    width: 20%;
+.controls {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+button {
+    text-align: center;
+    border-radius: 50%;
     margin: 10px;
-    text-align: center;
-    border: 1px solid black;
-    border-radius: 20px;
+    color: white;
+    font-size: 2rem;
 }
 
-.input button {
-    width: 20%;
-    margin: 10px;
-    text-align: center;
-    border-radius: 20px;
+.number {
+    background-color: gray;
+    border: none;
 }
 
-.equals button {
-    width: 94%;
-    text-align: center;
-    /* margin-top: 20px; */
-    /* margin-left: auto;
-    margin-right: auto; */
-    /* margin-bottom: 20px; */
-    margin: 10px;
-    border-radius: 15px;
+.operator {
+    background-color: orangered;
+    border: none;
 }
